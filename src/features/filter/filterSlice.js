@@ -1,0 +1,17 @@
+/** @format */
+
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+    stock: false,
+    brands: [],
+    keyword: ""
+};
+
+const filterSlice = createSlice({
+  name: "Filter",
+  initialState,
+  reducers: {},
+});
+
+export default filterSlice.reducer;
