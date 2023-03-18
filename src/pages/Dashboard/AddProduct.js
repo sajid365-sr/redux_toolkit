@@ -3,28 +3,26 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useAddProductMutation, useGetProductsQuery } from "../../features/api/apiSlice";
 
 
 const AddProduct = () => {
   const { register, handleSubmit, reset } = useForm();
-  const { isLoading, postSuccess, error, isError } = useSelector(state => state.products);
-  const dispatch = useDispatch();
+  
 
+  const { refetch } = useGetProductsQuery();
+  const [postProduct, { isSuccess, isLoading }] = useAddProductMutation();
+  
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Posting...", { id: "addProduct" })
+      toast.loading('Posting...', {id: 'add-product'})
     }
-    if (!isLoading && postSuccess) {
-
-      toast.success("Product added", { id: "addProduct" });
+    if (isSuccess) {
       reset();
+      refetch();
+      toast.success("Product added", { id: "add-product" });
     }
-    if (!isLoading && isError) {
-      toast.error(error, { id: "addProduct" });
-      
-    }
-  }, [isLoading, isError, error, postSuccess]);
+  }, [isLoading, isSuccess, refetch, reset])
 
 
   const submit = (data) => {
@@ -42,6 +40,7 @@ const AddProduct = () => {
       spec: [],
     };
 
+    postProduct(product);
 
   };
 

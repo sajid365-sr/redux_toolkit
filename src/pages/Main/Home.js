@@ -9,16 +9,6 @@ import { toggle, toggleBrands } from "../../features/filter/filterSlice";
 const Home = () => {
 
   const dispatch = useDispatch();
-  // const [products, setProducts] = useState([]);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:5000/products")
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     setProducts(data);
-  // })
-
-  // },[])
   
   const { data, isLoading, isSuccess, isError, error } = useGetProductsQuery();
   const products = data;
@@ -28,6 +18,9 @@ const Home = () => {
 
   if (isLoading) { 
     return <p>loading...</p>
+  }
+  if (isError) {
+    return <p>Something went wrong</p>
   }
  
 
