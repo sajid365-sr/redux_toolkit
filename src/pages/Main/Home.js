@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../../components/ProductCard";
 import { useGetProductsQuery } from "../../features/api/apiSlice";
@@ -10,7 +10,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
   
-  const { data, isLoading, isSuccess, isError, error } = useGetProductsQuery();
+  const { data, isLoading, isSuccess, isError, error } = useGetProductsQuery(null, {refetchOnMountOrArgChange: true});
   const products = data;
 
 

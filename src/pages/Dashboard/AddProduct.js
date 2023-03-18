@@ -3,14 +3,13 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useAddProductMutation, useGetProductsQuery } from "../../features/api/apiSlice";
+import { useAddProductMutation } from "../../features/api/apiSlice";
 
 
 const AddProduct = () => {
   const { register, handleSubmit, reset } = useForm();
   
 
-  const { refetch } = useGetProductsQuery();
   const [postProduct, { isSuccess, isLoading }] = useAddProductMutation();
   
   useEffect(() => {
@@ -19,10 +18,9 @@ const AddProduct = () => {
     }
     if (isSuccess) {
       reset();
-      refetch();
       toast.success("Product added", { id: "add-product" });
     }
-  }, [isLoading, isSuccess, refetch, reset])
+  }, [isLoading, isSuccess, reset])
 
 
   const submit = (data) => {
